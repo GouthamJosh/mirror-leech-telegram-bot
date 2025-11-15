@@ -4,7 +4,6 @@ from .core.config_manager import Config
 
 Config.load()
 
-
 async def main():
     from asyncio import gather
     from .core.startup import (
@@ -51,7 +50,6 @@ async def main():
         rclone_serve_booter(),
     )
 
-
 bot_loop.run_until_complete(main())
 
 from .helper.ext_utils.bot_utils import create_help_buttons
@@ -63,4 +61,28 @@ create_help_buttons()
 add_handlers()
 
 LOGGER.info("Bot Started!")
+
+# Added: AioHTTP server for Koyeb health checks on port 8080
+import asyncio
+from aiohttp import web
+
+async def health_check(request):
+    return web.json_response({"status": "alive"})
+
+async def start_aiohttp_server():
+    app = web.Application()
+    app.router.add_get('/', health_check)  # Responds to GET / with {"status": "alive"}
+    app.router.add_get('/health', health_check)  # Optional: Also responds to /health
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 8080)  # Bind to all interfaces on port 8080
+    await site.start()
+    LOGGER.info("AioHTTP server started on port 8080 for Koyeb health checks")
+    # Keep the server running indefinitely
+    while True:
+        await asyncio.sleep(3600)  # Sleep to prevent blocking, but server stays active
+
+# Run the aiohttp server in the background
+bot_loop.create_task(start_aiohttp_server())
+
 bot_loop.run_forever()
