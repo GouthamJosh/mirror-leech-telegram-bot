@@ -819,6 +819,7 @@ class TaskConfig:
 
     async def substitute(self, dl_path):
         def perform_substitution(name, substitutions):
+            name = sub(r"^[w]{1,4}\S+\s*[-_]*\s*", "", name)
             for substitution in substitutions:
                 sen = False
                 pattern = substitution[0]
