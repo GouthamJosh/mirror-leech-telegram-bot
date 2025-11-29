@@ -33,4 +33,3 @@ uvicorn
 uvloop
 xattr
 yt-dlp[default,curl-cffi]
-yt-dlp-ejs
