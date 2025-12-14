@@ -1,6 +1,7 @@
 from . import LOGGER, bot_loop
 from .core.telegram_manager import TgClient
 from .core.config_manager import Config
+from .core.health_server import start_health_server
 
 Config.load()
 
@@ -19,7 +20,7 @@ async def main():
 
     await load_settings()
 
-    await gather(TgClient.start_bot(), TgClient.start_user())
+    await gather(TgClient.start_bot(), TgClient.start_user(), start_health_server(),)
     await gather(load_configurations(), update_variables())
 
     from .core.torrent_manager import TorrentManager
@@ -62,5 +63,5 @@ add_aria2_callbacks()
 create_help_buttons()
 add_handlers()
 
-LOGGER.info("Bot Started!")
+LOGGER.info("Bot Started!\nAiohttp added")
 bot_loop.run_forever()
