@@ -10,9 +10,9 @@ CMD_SUFFIX = ""
 AUTHORIZED_CHATS = "-1001921007796"
 SUDO_USERS = ""
 DATABASE_URL = "mongodb+srv://WXML:WXML@wxml.mov8ctk.mongodb.net/?appName=WXML"
-STATUS_LIMIT = 4
+STATUS_LIMIT = 8
 DEFAULT_UPLOAD = "tg"
-STATUS_UPDATE_INTERVAL = 5
+STATUS_UPDATE_INTERVAL = 4
 FILELION_API = ""
 STREAMWISH_API = ""
 EXCLUDED_EXTENSIONS = ""
@@ -20,7 +20,7 @@ INCLUDED_EXTENSIONS = ""
 INCOMPLETE_TASK_NOTIFIER = True
 YT_DLP_OPTIONS = ""
 USE_SERVICE_ACCOUNTS = False
-NAME_SUBSTITUTE = "|\b(www\.[^\s/$.?#].[^\s]*)\b|KatmovieHD\b|BollYFlix\b|mkvCinemas\b|Archie\b|BingeMe\b|BollyFlix\b|college\b|yachts\b|NL\b|MoviesModbet\b|MoviesMod\b|MovieMixology\b|PIKAHD\b|COM\b|PikaHD\b|Dramasmood\b|CineVood\b|MoviesVerse\b|MoviezVerse\b|MrStrange\b|Spidey\b|ShiNobi\b|ShiNiGAMi\b|Pahe\b|REVOLT\b|(strange)\b|FLUX-DEVIL_DXD\b|DHRUB_DXD\b|Telly\b|WADU\b|Saon\b|HDHub4u\b|UHDMOVIES\b|Vegamovie\b|Vegamovies\b|PrimeFix\b|Chat\b|Toonworld4all\b|KatmovieHD\b|KatDrama\b|katmoviefix\b|bet\b|forum\b|SkymoviesHD\b|FilmyCab\b|FilmyWap\.[A-Za-z]+|ANToNi::1"
+NAME_SUBSTITUTE = ""
 FFMPEG_CMDS = {}
 UPLOAD_PATHS = {}
 # GDrive Tools
@@ -73,10 +73,10 @@ MEDIA_GROUP = False
 USER_TRANSMISSION = False
 HYBRID_LEECH = False
 LEECH_FILENAME_PREFIX = ""
-LEECH_DUMP_CHAT = ""
+LEECH_DUMP_CHAT = "-1003157185422"
 THUMBNAIL_LAYOUT = ""
 # qBittorrent/Aria2c
-TORRENT_TIMEOUT = 0
+TORRENT_TIMEOUT = 300
 BASE_URL = ""
 BASE_URL_PORT = 0
 WEB_PINCODE = False
