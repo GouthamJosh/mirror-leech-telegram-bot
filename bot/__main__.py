@@ -1,10 +1,29 @@
+import os
+from aiohttp import web
 from . import LOGGER, bot_loop
 from .core.telegram_manager import TgClient
 from .core.config_manager import Config
 
 Config.load()
 
+# --- Health Check Server Logic ---
+async def health_check(request):
+    return web.Response(text="Bot is running!", status=200)
 
+async def start_health_check():
+    app = web.Application()
+    app.router.add_get("/", health_check)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    
+    # Koyeb passes the PORT env var; default to 8080 for safety
+    port = int(os.environ.get("PORT", 8080)) 
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    
+    await site.start()
+    LOGGER.info(f"Health Check Server started on port {port}")
+
+# --- Main Bot Logic ---
 async def main():
     from asyncio import gather
     from .core.startup import (
@@ -30,6 +49,7 @@ async def main():
         update_aria2_options(),
         update_nzb_options(),
     )
+    
     from .helper.ext_utils.files_utils import clean_all
     from .core.jdownloader_booter import jdownloader
     from .helper.ext_utils.telegraph_helper import telegraph
@@ -40,6 +60,7 @@ async def main():
         restart_notification,
     )
 
+    # Added start_health_check() to the final gather block
     await gather(
         save_settings(),
         jdownloader.boot(),
@@ -49,6 +70,7 @@ async def main():
         restart_notification(),
         telegraph.create_account(),
         rclone_serve_booter(),
+        start_health_check(), 
     )
 
 
